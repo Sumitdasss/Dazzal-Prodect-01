@@ -7,8 +7,8 @@ import { products } from "../../Data/Data";
 import { FaFilter } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import  useStore  from "../Componant/Layout/Store/store";
+import { FaBalanceScale,FaHeart } from "react-icons/fa";
 
-import { FaHeart, FaBalanceScale } from "react-icons/fa";
 
 
 export default function ProductPage() {

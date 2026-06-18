@@ -2,7 +2,7 @@ import { GoShieldCheck } from "react-icons/go";
 import { IoRocketOutline } from "react-icons/io5";
 import { PiCreditCardLight } from "react-icons/pi";
 import { FiRefreshCw } from "react-icons/fi";
-import { FaTag } from "react-icons/fa6";
+import { FaTag } from "react-icons/fa";
 
 const InfoBar = () => {
   const items = [

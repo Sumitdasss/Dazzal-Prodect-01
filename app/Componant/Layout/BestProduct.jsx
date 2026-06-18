@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation,  Autoplay } from "swiper/modules";
 import useStore from "./Store/store";
 import { FaHeart, FaBalanceScale } from "react-icons/fa"
 import {products} from "../../../Data/Data"

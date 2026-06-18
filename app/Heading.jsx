@@ -261,6 +261,22 @@ const Heading = () => {
                       ONLINE EXCLUSIVE
                     </span>
                   </div>
+
+ <Link
+              href="/Cart"
+              onClick={()=>set}
+              className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
+            >
+              <div className="relative">
+                <CgShoppingCart />
+              </div>
+              <span className="absolute -top-2 z-30 -right-2 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-red-600 text-white text-[10px] font-bold">
+                {totalItems}
+              </span>
+              <span>CART</span>
+            </Link>
+
+
                 </nav>
 
                 <div className="h-1.5 w-full bg-linear-to-r from-amber-200/50 via-amber-500/50 to-transparent opacity-30"></div>
@@ -288,6 +304,7 @@ const Heading = () => {
 
             <Link
               href="/Cart"
+              onClick={() => setIsMenuOpen(false)}
               className="relative flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
             >
               <div className="relative">

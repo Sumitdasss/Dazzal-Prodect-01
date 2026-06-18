@@ -1,136 +1,137 @@
 "use client";
 import Link from "next/link";
-
-import  useStore  from "../Componant/Layout/Store/store";
+import useStore from "../Componant/Layout/Store/store";
 
 const Cartpage = () => {
-const { cart,increasePopulation,decreasePopulation } = useStore();
-   
-    const total = cart.reduce(
+  const { cart, increasePopulation, decreasePopulation } = useStore();
+
+  const total = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
   return (
-  
+    <section className="w-full max-w-360 mx-auto py-6 md:py-10 px-4">
 
-
-
-    
-  <section className=" w-full max-w-360 mx-auto  py-10">
-   
-      <div className="grid grid-cols-4 bg-white shadow-sm rounded-md px-6 py-5 font-medium mb-6">
+      {/* Header (Desktop only) */}
+      <div className="hidden md:grid grid-cols-4 bg-white shadow-sm rounded-md px-6 py-5 font-medium mb-6">
         <p>Product</p>
         <p>Price</p>
         <p>Quantity</p>
         <p className="text-right">Subtotal</p>
       </div>
 
-     
-      {cart.map((item ,index) => (
+      {/* Cart Items */}
+      {cart.map((item, index) => (
         <div
           key={index}
-          className="grid grid-cols-4 items-center bg-white shadow-sm rounded-md px-6 py-5 mb-6"
+          className="bg-white shadow-sm rounded-md p-4 md:px-6 md:py-5 mb-4 md:mb-6"
         >
-          {/* Product */}
-          <div className="flex items-center gap-4">
-            <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:items-center">
+
+            {/* Product */}
+            <div className="flex items-center gap-4">
               <Link href={`/DetailPage/${item.id}`}>
-              <img
-                src={item.img}
-                alt={item.name}
-                className="w-14"
-              />
-</Link>
-       
+                <img src={item.img} alt={item.name} className="w-14 md:w-16" />
+              </Link>
+              <p className="text-sm md:text-base">{item.name}</p>
             </div>
 
-            <p>{item.name}</p>
+            {/* Price */}
+            <p className="text-sm md:text-base">
+              <span className="md:hidden font-semibold">Price: </span>
+              ${item.price}
+            </p>
+
+            {/* Quantity */}
+            <div className="flex items-center md:justify-start">
+              <button
+                className="border px-3 py-1 rounded-l-md"
+                onClick={() => decreasePopulation(item.id)}
+              >
+                -
+              </button>
+              <span className="border-t border-b px-4 py-1">
+                {item.quantity}
+              </span>
+              <button
+                className="border px-3 py-1 rounded-r-md"
+                onClick={() => increasePopulation(item.id)}
+              >
+                +
+              </button>
+            </div>
+
+            {/* Subtotal */}
+            <p className="text-sm md:text-base md:text-right">
+              <span className="md:hidden font-semibold">Subtotal: </span>
+              ${item.price * item.quantity}
+            </p>
           </div>
-
-          {/* Price */}
-          <p>${item.price}</p>
-
-          {/* Quantity */}
-          <div>
-            <button className="border px-2 py-1 rounded-l-md" onClick={() => decreasePopulation(item.id)}>
-              -
-            </button>
-            <span className="border-t border-b px-4 py-1">{item.quantity}</span>
-           
-            <button className="border px-2 py-1 rounded-r-md"  onClick={() => increasePopulation(item.id)}>
-              +
-            </button>
-          </div>
-
-          {/* Subtotal */}
-          <p className="text-right">
-            ${item.price * item.quantity}
-          </p>
         </div>
       ))}
 
-     
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-14">
-        <Link href={"/Shop"}>
-        <button className="border px-8 py-4 rounded-md font-medium">
-          Return To Shop
-        </button>
+      {/* Buttons */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10">
+        <Link href="/Shop">
+          <button className="w-full md:w-auto border px-6 py-3 rounded-md font-medium">
+            Return To Shop
+          </button>
         </Link>
-<Link href={"/Shop"}>
-        <button className="border px-8 py-4 rounded-md font-medium">
-          Update Cart
-        </button>
+
+        <Link href="/Shop">
+          <button className="w-full md:w-auto border px-6 py-3 rounded-md font-medium">
+            Update Cart
+          </button>
         </Link>
       </div>
 
-      {/* Bottom */}
-      <div className="flex flex-col lg:flex-row gap-10 justify-between">
+      {/* Bottom Section */}
+      <div className="flex flex-col lg:flex-row gap-8 justify-between">
+
         {/* Coupon */}
-        <div className="flex gap-4">
+        <div className="flex  gap-3 ">
           <input
             type="text"
             placeholder="Coupon Code"
-            className="border px-5 py-4 rounded-md w-72 h-15 outline-none"
+            className="border px-4 h-15 md:h-15 rounded-md outline-none"
           />
 
-          <button className="bg-red-500 h-15   text-white px-10 rounded-md">
+          <button className="bg-red-500 text-white px-6 h-15 md:h-15 rounded-md">
             Apply Coupon
           </button>
         </div>
 
         {/* Total */}
-        <div className="border rounded-md p-8 w-full max-w-md">
-          <h2 className="text-2xl font-semibold mb-6">
+        <div className="border rounded-md p-6 w-full max-w-md">
+          <h2 className="text-xl md:text-2xl font-semibold mb-6">
             Cart Total
           </h2>
 
-          <div className="flex justify-between border-b pb-4 mb-4">
+          <div className="flex justify-between border-b pb-3 mb-3">
             <p>Subtotal:</p>
             <p>${total}</p>
           </div>
 
-          <div className="flex justify-between border-b pb-4 mb-4">
+          <div className="flex justify-between border-b pb-3 mb-3">
             <p>Shipping:</p>
             <p>Free</p>
           </div>
 
-          <div className="flex justify-between mb-8">
+          <div className="flex justify-between mb-6 font-semibold">
             <p>Total:</p>
             <p>${total}</p>
           </div>
 
           <Link href="/checkout">
-            <button className="w-full bg-red-500 text-white py-4 rounded-md">
-              Proceeds to checkout
+            <button className="w-full bg-red-500 text-white py-3 rounded-md">
+              Proceed to Checkout
             </button>
           </Link>
         </div>
       </div>
     </section>
-    
   );
-}
-  
+};
 
-
-export default Cartpage
+export default Cartpage;

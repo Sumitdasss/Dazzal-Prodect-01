@@ -66,18 +66,14 @@ const normalize = (str) =>
   str?.toLowerCase().replace(/\s+/g, "").trim();
 
 const searchResults = useMemo(() => {
-  const q = debouncedSearch?.toLowerCase().trim();
+  const q = normalize(debouncedSearch);
 
   if (!q) return [];
 
-  const keywords = q.split(/\s+/); 
-
   return products.filter((p) => {
-    const text = `${p.name} ${p.brand} ${p.category}`
-      .toLowerCase()
-      .trim();
+    const text = normalize(`${p.name} ${p.brand} ${p.category}`);
 
-    return keywords.every((word) => text.includes(word));
+    return q.split("").every((char) => text.includes(char));
   });
 }, [debouncedSearch]);
 

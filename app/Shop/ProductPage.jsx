@@ -17,10 +17,12 @@ export default function ProductPage() {
 const category = searchParams.get("category");
 
 const brand = searchParams.get("brand");
+const [currentPage, setCurrentPage] = useState(1);
+const productsPerPage = 12;
   const [hoveredId, setHoveredId] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [minPrice, setMinPrice] = useState(5000);
-  const [maxPrice, setMaxPrice] = useState(250490);
+  const [maxPrice, setMaxPrice] = useState(400000);
   const [availability, setAvailability] = useState('');
   const [isFilterOpen, setisFilterOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([]);
@@ -34,6 +36,11 @@ const brand = searchParams.get("brand");
 
 
  const brandsList = [...new Set(products.map(item => item.brand))];
+
+
+
+
+
 
   const handelmenue =()=>{
     setisFilterOpen(!isFilterOpen)
@@ -118,7 +125,7 @@ const STORAGElist = useMemo(() => {
   const clearFilters = () => {
     setSelectedBrand(null);
     setMinPrice(5000);
-    setMaxPrice(250490);
+    setMaxPrice(400000);
     setAvailability('');
     setSelectedColors([]);
     setSortBy('Default');
@@ -220,6 +227,23 @@ if (brand) {
   category,
 brand
 ]);
+
+
+
+// pageinationm
+const totalPages = Math.ceil(
+  filteredProducts.length / productsPerPage
+);
+
+const startIndex = (currentPage - 1) * productsPerPage;
+const endIndex = startIndex + productsPerPage;
+
+const currentProducts = filteredProducts.slice(
+  startIndex,
+  endIndex
+);
+// pageinationm
+
   return (
     <div className="bg-[#FCFBFA]  text-gray-800 font-sans antialiased p-4 md:p-8">
       <div className="max-w-360 mx-auto space-y-6">
@@ -275,8 +299,8 @@ brand
               <div className="px-1 space-y-4">
                 <input 
                   type="range" 
-                  min="11990" 
-                  max="150490" 
+                  min="5000" 
+                  max="400000" 
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
                   className="w-full accent-[#C5A880]"
@@ -536,7 +560,7 @@ brand
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredProducts.map((product) => (
+                {currentProducts.map((product) => (
                   <div key={product.id}  onMouseEnter={() => setHoveredId(product.id)}
   onMouseLeave={() => setHoveredId(null)} className="bg-white border border-gray-100 rounded-lg p-4 flex flex-col justify-between relative shadow-sm hover:shadow-md transition-shadow group">
                    <div className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
@@ -612,9 +636,54 @@ brand
 
                   </div>
                 ))}
+
+
+
+                
               </div>
             )}
+<div className="bg-white border border-gray-200 rounded-lg p-4 mt-6">
+  <div className="flex items-center justify-between">
 
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage(prev => prev - 1)}
+      className="disabled:opacity-40 cursor-pointer"
+    >
+      Previous
+    </button>
+
+    <div className="flex items-center gap-2">
+      {Array.from({ length: totalPages }, (_, i) => i + 1)
+        .slice(
+          Math.max(0, currentPage - 3),
+          Math.min(totalPages, currentPage + 2)
+        )
+        .map(page => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`w-10 h-10 rounded ${
+              currentPage === page
+                ? "bg-[#C5A880] text-white"
+                : "bg-white border"
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+    </div>
+
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage(prev => prev + 1)}
+      className="disabled:opacity-40 cursor-pointer"
+    >
+      Next
+    </button>
+
+  </div>
+</div>
           </main>
         </div>
       </div>

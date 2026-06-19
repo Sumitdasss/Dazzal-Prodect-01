@@ -38,7 +38,7 @@ console.log("Type:", typeof product?.VARIANT);
         <span className="text-gray-800 font-medium">{product.name}</span>
       </nav>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
       
         <div className="lg:col-span-7 flex flex-row gap-4 items-start">

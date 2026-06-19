@@ -655,5 +655,353 @@
       bluetooth: '6.0, A2DP, LE'
     }
   },
+  {
+    id: 11,
+    name: 'ASUS TUF Gaming A14 FA401WV AMD Ryzen AI 9-370HX NVIDIA GeForce RTX 4050 14" Gaming LaptopRedmi Pad 2',
+    brand: 'Asus',
+     availability:"In-stock",
+    color:["Gray"],
+    Region:"China",
+    SIM:"GSM/CDMA/ HSPA/EVDO/LTE/5G",
+    category: 'LAPTOP',
+    Prosesor:"yzen AI 9 HX 370",
+    STORAGE:["16/1TB"],
+    VARIANT:["WiFi","WiFi+ Cellular"], 
+    price:155990 ,
+    ram:["1 TB"],
+    originalPrice: 174287,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F106171%2FASUS-TUF-Gaming-A14-FA401WV-AMD-Ryzen-AI-9-370HX-NVIDIA-GeForce-RTX-4050-14-Gaming-Laptop-price-in-bangladesh.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F106171%2FASUS-TUF-Gaming-A14-FA401WV-AMD-Ryzen-AI-9-370HX-NVIDIA-GeForce-RTX-4050-14-Gaming-Laptop-price-in-bangladesh.jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+  {
+    id: 12,
+    name: 'ASUS ROG Strix G16 G614FR AMD Ryzen 9 9955HX NVIDIA GeForce RTX 5070 16" WQXDA Display Gaming Laptop',
+    brand: 'Asus',
+     availability:"In-stock",
+    color:["Volt Green"],
+    Region:"China",
+    SIM:"GSM/CDMA/ HSPA/EVDO/LTE/5G",
+    category: 'LAPTOP',
+    Prosesor:"yzen AI 9 HX 370",
+    STORAGE:["16/1TB","32/ 1TB"],
+    VARIANT:["WiFi","WiFi+ Cellular"], 
+    price:324290,
+    ram:["1 TB"],
+    originalPrice:362329 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F110395%2FASUS-ROG-Strix-G18-G614FR-AMD-Ryzen-9-9955HX-NVIDIA-GeForce-RTX-5070-16-WQXDA-Display-Gaming-Laptop-price-in-bangladesh-(2).jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F110395%2FASUS-ROG-Strix-G18-G614FR-AMD-Ryzen-9-9955HX-NVIDIA-GeForce-RTX-5070-16-WQXDA-Display-Gaming-Laptop-price-in-bangladesh-(2).jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+  {
+    id: 13,
+    name: 'Apple Watch Series 11',
+    brand: 'Apple',
+     availability:"In-stock",
+    color:["Rose Gold","Jet Black","Silver","Space Gray"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'SMART WATCH',
+    Prosesor:"Apple S10",
+    STORAGE:["64GB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:48490,
+    ram:["64GB"],
+    originalPrice:54177 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63516%2FApple-Watch-Series-11-Price-in-Bangladesh-rose-gold.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63516%2FApple-Watch-Series-11-Price-in-Bangladesh-rose-gold.jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63517%2FApple-Watch-Series-11-Price-in-Bangladesh-Jet-Black.jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63518%2FApple-Watch-Series-11-Price-in-Bangladesh-Silver.jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63519%2FApple-Watch-Series-11-Price-in-Bangladesh-Space-Gray.jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+
+
+  {
+    id: 14,
+    name: 'Apple Mac Mini M4 Chip With 10‑core CPU and 10‑core GPU',
+    brand: 'Apple',
+     availability:"In-stock",
+    color:["Volt Green"],
+    Region:"China",
+    SIM:"GSM/CDMA/ HSPA/EVDO/LTE/5G",
+    category: 'LAPTOP',
+    Prosesor:"M4",
+    STORAGE:["16/256GB","16/512GB","24/512GB"],
+    VARIANT:["WiFi","WiFi+ Cellular"], 
+    price:89990,
+    ram:["256GB 16GB ", "512GB 16GB", "512GB 24GB"],
+    originalPrice:100545 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F52035%2FApple-Mac-Mini-M4-Chip-With-10%E2%80%91core-CPU-and-10%E2%80%91core-GPU-price-in-Bangladesh.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F52035%2FApple-Mac-Mini-M4-Chip-With-10%E2%80%91core-CPU-and-10%E2%80%91core-GPU-price-in-Bangladesh.jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
   
+
+
+{
+    id: 15,
+    name: 'Powerbeats Fit',
+    brand: 'Beats',
+     availability:"In-stock",
+    color:["Jet Black","Gravity Gray","Spark Orange","Power Pink"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'GADGET',
+    Prosesor:"Apple S10",
+    STORAGE:["64GB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:29190,
+    ram:["64GB"],
+    originalPrice:32613 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F76318%2FPowerbeats-Fit-price-in-bangladesh-(1).jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F76318%2FPowerbeats-Fit-price-in-bangladesh-(1).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F76319%2FPowerbeats-Fit-price-in-bangladesh-(2).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F76320%2FPowerbeats-Fit-price-in-bangladesh-(3).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F76321%2FPowerbeats-Fit-price-in-bangladesh-(4).jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+{
+    id: 16,
+    name: 'UAG Ultem Limited Edition Monarch Pro Case for Galaxy S25 Ultra',
+    brand: 'UAG',
+     availability:"Out-of-Stock",
+    color:["Jet Black","Gravity Gray","Spark Orange","Power Pink"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'ACCESSORIES',
+    Prosesor:"Apple S10",
+    STORAGE:["64GB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:29190,
+    ram:["64GB"],
+    originalPrice:32613 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F49325%2FUAG-Ultem-Limited-Edition-Monarch-Pro-Case-for-Galaxy-S25-Ultra-price-in-Bangladesh.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F49325%2FUAG-Ultem-Limited-Edition-Monarch-Pro-Case-for-Galaxy-S25-Ultra-price-in-Bangladesh.jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F49326%2FUAG-Ultem-Limited-Edition-Monarch-Pro-Case-for-Galaxy-S25-Ultra-price-in-Bangladesh-(2).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F49327%2FUAG-Ultem-Limited-Edition-Monarch-Pro-Case-for-Galaxy-S25-Ultra-price-in-Bangladesh-(3).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F49328%2FUAG-Ultem-Limited-Edition-Monarch-Pro-Case-for-Galaxy-S25-Ultra-price-in-Bangladesh-(4).jpg&w=640&q=75',
+     
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+
+{
+    id: 17,
+    name: 'HiFuture MusicBox Wireless Karaoke Speaker',
+    brand: 'HiFuture',
+     availability:"In-stock",
+    color:["Black","Silver","Spark Orange","Power Pink"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'SOUNDS',
+    Prosesor:"Apple S10",
+    STORAGE:["64GB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:199900,
+    ram:["64GB"],
+    originalPrice:22334 ,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F19266%2FHiFuture-MusicBox-(1)black.png&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F19266%2FHiFuture-MusicBox-(1)black.png&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F19267%2FHiFuture-MusicBox-(2).png&w=640&q=75',
+
+    
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+{
+    id: 18,
+    name: 'Xiaomi TV A Pro 75" 2026 QLED 4K UHD Smart TV',
+    brand: 'Xiaomi',
+     availability:"In-stock",
+    color:["Dark Gray"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'SMART TV',
+    Prosesor:"Quad cortex A55",
+    STORAGE:["8GBB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:139999,
+    ram:["2GB"],
+    originalPrice:155420,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F102064%2FXiaomi-TV-A-Pro-75-inch-2026-price-in-bangladesh-(2).jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F102064%2FXiaomi-TV-A-Pro-75-inch-2026-price-in-bangladesh-(2).jpg&w=640&q=75',
+
+
+    
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+
+
 ];

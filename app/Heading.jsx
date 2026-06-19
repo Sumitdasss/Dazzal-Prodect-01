@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaGift, FaFileInvoice } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
@@ -21,7 +22,7 @@ const Heading = () => {
   const [isFocused, setIsFocused] = useState(false);
   const menuRef = useRef(null);
   const [openMenu2, setOpenMenu2] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+ const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
 
   const { cart } = useStore();
@@ -51,16 +52,39 @@ const Heading = () => {
     console.log(search);
   };
 
-const searchResults = products.filter((product) =>
-  product.name?.toLowerCase().includes(search.toLowerCase())
-);
+const [debouncedSearch, setDebouncedSearch] = useState("");
+
+useEffect(() => {
+  const handler = setTimeout(() => {
+    setDebouncedSearch(search);
+  }, 300);
+
+  return () => clearTimeout(handler);
+}, [search]);
+
+const normalize = (str) =>
+  str?.toLowerCase().replace(/\s+/g, "").trim();
+
+const searchResults = useMemo(() => {
+  const q = debouncedSearch?.toLowerCase().trim();
+
+  if (!q) return [];
+
+  const keywords = q.split(/\s+/); 
+
+  return products.filter((p) => {
+    const text = `${p.name} ${p.brand} ${p.category}`
+      .toLowerCase()
+      .trim();
+
+    return keywords.every((word) => text.includes(word));
+  });
+}, [debouncedSearch]);
+
 const groupedProducts = searchResults.reduce((acc, product) => {
   const category = product.category || "Others";
 
-  if (!acc[category]) {
-    acc[category] = [];
-  }
-
+  if (!acc[category]) acc[category] = [];
   acc[category].push(product);
 
   return acc;
@@ -663,7 +687,7 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                    {getBrandsByCategory(" SMART WATCH").map((item, idx) => (
+                    {getBrandsByCategory("SMART WATCH").map((item, idx) => (
   <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
 <Link href={`/Shop?category=SMART WATCH&brand=${item}`}>
     {item}

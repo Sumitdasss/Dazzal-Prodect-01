@@ -835,7 +835,7 @@
     color:["Jet Black","Gravity Gray","Spark Orange","Power Pink"],
     Region:"China",
     SIM:"GSM / HSPA / LTE / 5G",
-    category: 'GADGET',
+    category: 'GADGETS',
     Prosesor:"Apple S10",
     STORAGE:["64GB"],
     VARIANT:["gps" ,"gps + cellular"], 
@@ -979,6 +979,95 @@
     img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F102064%2FXiaomi-TV-A-Pro-75-inch-2026-price-in-bangladesh-(2).jpg&w=640&q=75',
     thumbnails: [
       'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F102064%2FXiaomi-TV-A-Pro-75-inch-2026-price-in-bangladesh-(2).jpg&w=640&q=75',
+
+
+    
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+
+{
+    id: 19,
+    name: 'Anker Nano Pro 20w Combo For iPhone Braided',
+    brand: 'Anker',
+     availability:"In-stock",
+    color:[" White"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'Adapters',
+    Prosesor:"Quad cortex A55",
+    STORAGE:["8GBB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:139999,
+    ram:["2GB"],
+    originalPrice:155420,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F72360%2FAnker-Nano-Pro-20w-Combo-For-iPhone-Braided-price-in-Bangladesh.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F72360%2FAnker-Nano-Pro-20w-Combo-For-iPhone-Braided-price-in-Bangladesh.jpg&w=640&q=75',
+
+
+    
+    ],
+    variants: {
+      colors: ['Black', 'Purple', 'Blue', 'Green', 'White'],
+      regions: ['Global Variant (Sim + e-Sim)', 'JP/MEA (Dual e-Sim)', 'HK / CH (Dual Sim)']
+    },
+    specifications: {
+      display: '6.3-inch LTPO Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, Ceramic Shield 2',
+      durability: 'IP68 dust tight and water resistant',
+      os: 'iOS 26',
+      chipset: 'Apple A19 (3 nm), Hexa-core CPU, Apple 5-core GPU',
+      memory: '256GB 8GB RAM, 512GB 8GB RAM; NVMe',
+      mainCamera: 'Dual 48 MP rear (wide OIS, ultrawide), dual LED flash, HDR, 4K video',
+      selfieCamera: '18 MP front with 4K video, HDR, 3D audio capture',
+      battery: 'Li-Ion 3692 mAh, 25W wireless charging (15W in China), 4.5W reverse wired',
+      dimensions: '149.6 x 71.5 x 8 mm (5.89 x 2.81 x 0.31 in)',
+      weight: '177 g (6.24 oz)',
+      usb: 'USB TYPE-C 2.0, DISPLAYPORT',
+      bluetooth: '6.0, A2DP, LE'
+    }
+  },
+{
+    id: 20,
+    name: 'Apple AirPods Pro 3',
+    brand: 'Apple',
+     availability:"In-stock",
+    color:[" White"],
+    Region:"China",
+    SIM:"GSM / HSPA / LTE / 5G",
+    category: 'Airpods',
+    Prosesor:"Quad cortex A55",
+    STORAGE:["8GBB"],
+    VARIANT:["gps" ,"gps + cellular"], 
+    price:139999,
+    ram:["2GB"],
+    originalPrice:155420,
+    discountPercentage: 25,
+    liveViews: 17,
+    img: 'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63522%2FAirPods-Pro-3-price-in-Bangladesh.jpg&w=640&q=75',
+    thumbnails: [
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63522%2FAirPods-Pro-3-price-in-Bangladesh.jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63523%2FAirPods-Pro-3-price-in-Bangladesh-(2).jpg&w=640&q=75',
+      'https://dazzle.com.bd/_next/image?url=https%3A%2F%2Fdazzle.sgp1.cdn.digitaloceanspaces.com%2F63524%2FAirPods-Pro-3-price-in-Bangladesh.jpg&w=640&q=75',
 
 
     

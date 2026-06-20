@@ -711,7 +711,7 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                  {getBrandsByCategory("GADGET").map((item, idx) => (
+                  {getBrandsByCategory("GADGETS").map((item, idx) => (
   <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
 <Link href={`/Shop?category=GADGET&brand=${item}`}>
     {item}

@@ -4,12 +4,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaGift, FaFileInvoice } from "react-icons/fa";
+import { FaGift, FaFileInvoice,FaShopify } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { FaAngleRight } from "react-icons/fa6";
 import { CgShoppingCart } from "react-icons/cg";
 import { categories } from "../Data/Data";
+import { CiLogin } from "react-icons/ci";
 import useStore from "./Componant/Layout/Store/store";
 import Link from "next/link";
 import { products } from "../Data/Data";
@@ -444,14 +445,26 @@ const groupedProducts = searchResults.reduce((acc, product) => {
 <Link href="/Shop"  onClick={()=>setIsMenuOpen(false)}>
                   <div className="flex items-center justify-between group cursor-pointer">
                     <span className="text-[13px] py-1 flex items-center py-3 gap-2 font-bold tracking-wider text-gray-800 group-hover:text-black uppercase">
-                      <img
-                        src="https://dazzle.com.bd/_next/image?url=%2Fonline-exclusive.png&w=16&q=75"
-                        alt="SMART TV"
-                      />{" "} 
+                      <FaShopify className="text-[16px]"/>
                       Shop
                     </span>
                   </div>
                   </Link>
+
+<Link
+              href="/Login"
+              onClick={()=>setIsMenuOpen(false)}
+              className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
+            >
+              <div className="relative">
+                <CiLogin />
+              </div>
+             
+              <span>LOGIN</span>
+            </Link>
+
+
+
 
  <Link
               href="/Cart"
@@ -507,7 +520,7 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               <span>CART</span>
             </Link>
             <a
-              href="#login"
+              href="/Login"
               className="border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors"
             >
               LOGIN

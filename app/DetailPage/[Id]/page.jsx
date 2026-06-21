@@ -1,4 +1,4 @@
-import ProductDetailPage from "../../Componant/Layout/DetailPage"
+import ProductDetailPage from "../../Componant/Layout/ProductDetailPage_responsive"
 import {products} from "../../../Data/Data"
 
 

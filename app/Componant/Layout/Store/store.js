@@ -81,6 +81,23 @@ const useStore = create(
           };
         }),
 
+      removeFromCart: (id) =>
+  set((state) => {
+    const product = state.cart.find(
+      (item) => item.id == id
+    );
+
+    if (product) {
+      toast.error(`${product.name} removed from cart`);
+    }
+
+    return {
+      cart: state.cart.filter(
+        (item) => item.id != id
+      ),
+    };
+  }),
+
       decreasePopulation: (id) =>
         set((state) => {
           const product = state.cart.find(

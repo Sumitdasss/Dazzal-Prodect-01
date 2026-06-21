@@ -155,9 +155,13 @@ if (brand) {
     p => p.price >= minPrice && p.price <= maxPrice
   );
 
-  if (availability) {
-    result = result.filter(p => p.availability === availability);
-  }
+  if (availability === "In-Stock") {
+  result = result.filter((p) => p.availability > 0);
+}
+
+if (availability === "Out-of-Stock") {
+  result = result.filter((p) => p.availability <= 0);
+}
 
   if (selectedColors.length) {
     result = result.filter(p =>
@@ -560,82 +564,99 @@ const currentProducts = filteredProducts.slice(
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {currentProducts.map((product) => (
-                  <div key={product.id}  onMouseEnter={() => setHoveredId(product.id)}
-  onMouseLeave={() => setHoveredId(null)} className="bg-white border border-gray-100 rounded-lg p-4 flex flex-col justify-between relative shadow-sm hover:shadow-md transition-shadow group">
-                   <div className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
-    hoveredId === product.id
-      ? "opacity-100 translate-x-0"
-      : "opacity-0 translate-x-12"
-  }`}>
-  <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white">
-    <FaHeart size={16} />
-  </button>
+            {currentProducts.map((product) => {
+  const discountAmount =
+    (product.originalPrice * product.discountPercentage) / 100;
 
-  <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-black hover:text-white">
-    <FaBalanceScale size={16} />
-  </button>
-</div> 
-                    {/* Upper Badges */}
-                    <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
-                      {product.discount && (
-                        <span className="bg-[#BA8E55] text-white font-bold text-[10px] px-2 py-0.5 rounded-sm">
-                          {product.discount}
-                        </span>
-                      )}
-                    </div>
-                    {product.isHot && (
-                      <div className="absolute top-3 right-3 z-10 bg-black text-[#E8C28A] text-[10px] font-semibold px-2 py-0.5 rounded-sm flex items-center gap-1">
-                        <span className="w-1 h-1 bg-red-500 rounded-full animate-ping"></span>
-                        Hot Product
-                      </div>
-                    )}
+  const finalPrice = product.originalPrice - discountAmount;
 
-                    {/* Image Box */}
-                     <Link href={`/DetailPage/${product.id}`}>
-                    <div className="w-full h-48 flex items-center justify-center overflow-hidden mb-4 rounded bg-gray-50 p-2">
-                     <img 
-                        src={product.img} 
-                        alt={product.name} 
-                        className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
-                      />
-                     
-                    </div>
-                     </Link>
+  return (
+    <div
+      key={product.id}
+      onMouseEnter={() => setHoveredId(product.id)}
+      onMouseLeave={() => setHoveredId(null)}
+      className="bg-white border border-gray-100 rounded-lg p-4 flex flex-col justify-between relative shadow-sm hover:shadow-md transition-shadow group"
+    >
+      {/* hover icons */}
+      <div
+        className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
+          hoveredId === product.id
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-12"
+        }`}
+      >
+        <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white">
+          <FaHeart size={16} />
+        </button>
 
-                    {/* Meta Info */}
-                    <div className="text-center space-y-1.5 flex-grow">
-                      {/* Warranty Tag */}
-                      <div className="inline-flex items-center gap-1 text-[10px] text-gray-500 border border-gray-200 px-1.5 py-0.5 rounded bg-gray-50">
-                        <span className="font-bold text-[#8C6D41]">1 YEAR</span> Warranty
-                      </div>
-                      <h3 className="font-semibold text-sm text-gray-800 line-clamp-1 group-hover:text-[#BA8E55] transition-colors">
-                        {product.name}
-                      </h3>
-                      <div className="flex justify-center items-center gap-2">
-                        <span className="text-sm font-bold text-gray-900">৳ {product.price?.toLocaleString()}</span>
-                        {product.originalPrice && (
-                          <span className="text-xs text-gray-400 line-through">৳ {product.originalPrice?.toLocaleString()}</span>
-                        )}
-                      </div>
-                    </div>
+        <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-black hover:text-white">
+          <FaBalanceScale size={16} />
+        </button>
+      </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 mt-4 pt-2 border-t border-gray-50">
- <Link href={`/DetailPage/${product.id}`}>
-                      <button className="px-7 cursor-pointer bg-black text-white text-xs py-2 rounded font-medium hover:bg-gray-900 transition-colors">
+      {/* discount badge */}
+      <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
+        {product.discount && (
+          <span className="bg-[#BA8E55] text-white font-bold text-[10px] px-2 py-0.5 rounded-sm">
+            {product.discount}
+          </span>
+        )}
+      </div>
 
-                        View
-                        
-                      </button>
-                        </Link>
-                      <button onClick={()=>addTocart(product)} className="w-2/3 bg-[#FCF7F0] border border-[#EFE6DB] text-[#8C6D41] text-xs py-2 rounded font-semibold hover:bg-[#BA8E55] hover:text-white hover:border-[#BA8E55] transition-all">
-                        ADD TO CART
-                      </button>
-                    </div>
+      {/* hot badge */}
+      {product.isHot && (
+        <div className="absolute top-3 right-3 z-10 bg-black text-[#E8C28A] text-[10px] font-semibold px-2 py-0.5 rounded-sm flex items-center gap-1">
+          <span className="w-1 h-1 bg-red-500 rounded-full animate-ping"></span>
+          Hot Product
+        </div>
+      )}
 
-                  </div>
-                ))}
+      {/* image */}
+      <Link href={`/DetailPage/${product.id}`}>
+        <div className="w-full h-48 flex items-center justify-center overflow-hidden mb-4 rounded bg-gray-50 p-2">
+          <img
+            src={product.img}
+            alt={product.name}
+            className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </Link>
+
+      {/* name + price */}
+      <div className="text-center space-y-1.5 flex-grow">
+        <h3 className="font-semibold text-sm text-gray-800 line-clamp-1">
+          {product.name}
+        </h3>
+
+        <div className="flex justify-center items-center gap-2">
+          <span className="text-sm font-bold text-gray-900">
+            ৳ {finalPrice.toLocaleString()}
+          </span>
+
+          <span className="text-xs text-gray-400 line-through">
+            ৳ {product.originalPrice?.toLocaleString()}
+          </span>
+        </div>
+      </div>
+
+      {/* buttons */}
+      <div className="flex gap-2 mt-4 pt-2 border-t border-gray-50">
+        <Link href={`/DetailPage/${product.id}`}>
+          <button className="px-7 cursor-pointer bg-black text-white text-xs py-2 rounded font-medium hover:bg-gray-900 transition-colors">
+            View
+          </button>
+        </Link>
+
+        <button
+          onClick={() => addTocart(product)}
+          className="w-2/3 bg-[#FCF7F0] border border-[#EFE6DB] text-[#8C6D41] text-xs py-2 rounded font-semibold hover:bg-[#BA8E55] hover:text-white hover:border-[#BA8E55] transition-all"
+        >
+          ADD TO CART
+        </button>
+      </div>
+    </div>
+  );
+})}
 
 
 

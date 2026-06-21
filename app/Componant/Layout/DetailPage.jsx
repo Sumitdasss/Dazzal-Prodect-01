@@ -1,34 +1,84 @@
 "use client"; 
 
-import React, { useState } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { FaHeart, FaBalanceScale } from "react-icons/fa";
+import Link from "next/link";
+import useStore from './Store/store';
+import {products} from "../../../Data/Data"
+import {carePlans} from "../../../Data/Data"
 export default function ProductDetailPage({ product }) {
 const [selectedColor, setSelectedColor] = useState(
   product?.color?.[0] || ""
 );
+  const [hoveredId, setHoveredId] = useState(null);
+const [selectedCare, setSelectedCare] = useState(null);
   const [mainDisplayImg, setMainDisplayImg] = useState(product?.img || "");
   const variants = Array.isArray(product?.VARIANT)? product.VARIANT: product?.VARIANT ? [product.VARIANT] : [];
-  
-  
+  const {addTocart,cart,removeFromCart}=useStore()
+ 
 const storeg = Array.isArray(product?.STORAGE)? product.STORAGE: product?.STORAGE? [product.STORAGE]: [];
+ // ✅ এটা ঠিক আছে কিনা দেখো — id compare এ type মিলছে কিনা
+const relatedProducts = products.filter(
+  (item) => item.category === product.category && item.id !== product.id
+);
 
-console.log("Product:", product);
-console.log("VARIANT:", product?.VARIANT);
-console.log("Type:", typeof product?.VARIANT);
   const [selectedStorage, setSelectedStorage] = useState(product?.STORAGE?.[0] || "");
   const [selectedRegion, setSelectedRegion] = useState(product?.Region || "");
+const careRef = useRef(null);
+
+useEffect(() => {
+  const handleWheel = (e) => {
+  const el = careRef.current;
+  if (!el) return;
+
+  const isAtTop = el.scrollTop === 0;
+  const isAtBottom =
+    el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+
+  const speed = 4; // 1 = normal, 3 = fast, 5 = very fast
+
+  if (e.deltaY > 0 && !isAtBottom) {
+    e.preventDefault();
+    el.scrollTop += e.deltaY * speed;
+  }
+
+  if (e.deltaY < 0 && !isAtTop) {
+    e.preventDefault();
+    el.scrollTop += e.deltaY * speed;
+  }
+};
+
+  window.addEventListener("wheel", handleWheel, { passive: false });
+
+  return () =>
+    window.removeEventListener("wheel", handleWheel);
+}, []);
+
+const selectedCategories = ["Adapters", "Airpods"];
 
   if (!product) {
     return <div className="p-8 text-center text-gray-500">No product data found!</div>;
   }
-
+const progress=(product.availability/product.totalQty)*100
 
   const formatPrice = (amount) => {
     return amount ? `BDT ${amount.toLocaleString('en-IN')}` : '';
   };
 
+  // discounted price clculate
+const carePrice = selectedCare ? selectedCare.price : 0;
+
+const finalTotal =
+  product.price + carePrice;
+  // discounted price clculate
+
+
   return (
-    <div className="bg-gray-50 max-w-360 mx-auto min-h-screen p-4 md:p-8 font-sans antialiased text-gray-800">
+    <div   className="bg-gray-50 max-w-360 mx-auto min-h-screen p-4 md:p-8 font-sans antialiased text-gray-800">
       
      
       <nav className="text-xs text-gray-500 mb-6 flex items-center gap-1">
@@ -49,6 +99,7 @@ console.log("Type:", typeof product?.VARIANT);
            
           
            {product.thumbnails?.map((thumbUrl, idx) => (
+
   <button
     key={idx}
     onClick={() => {
@@ -100,7 +151,7 @@ console.log("Type:", typeof product?.VARIANT);
         </div>
 
         {/* RIGHT COLUMN: Details Section (Takes 5 Cols) */}
-        <div className="lg:col-span-5 flex flex-col gap-5">
+        <div     ref={careRef} className="lg:col-span-5 max-h-[800px]  overflow-y-auto flex flex-col gap-5 scroll-smooth">
           
           {/* Top Actions & Brand */}
           <div className="flex justify-between items-center">
@@ -152,7 +203,19 @@ console.log("Type:", typeof product?.VARIANT);
 
             {/* Availability */}
             <div className="text-xs text-amber-900 bg-amber-50 p-2 rounded border border-amber-200/60 font-medium">
-              Status: <span className="text-green-700 font-bold">{product.availability}</span>
+              Status: <span className="text-green-700 font-bold">{product.availability>0?"In-Stock":"Out-of-Stock"}</span>
+              <div className="h-1 w-[150px] bg-gray-200 rounded-full overflow-hidden mb-2">
+   <div
+  className="h-full bg-red-600 transition-all duration-[3000ms]"
+  style={{ width: `${progress}%` }}
+></div>
+
+
+  </div>
+  <span className="text-black text-[16px]">
+ 
+  Available: {product.availability}
+</span>
             </div>
 
             {/* Quick Tech Specs Highlights */}
@@ -229,10 +292,387 @@ console.log("Type:", typeof product?.VARIANT);
               </div>
             </div>
 
+
+
+
+
+
+
+
+
+
+
+<div className="w-full max-w-[500px] mx-auto space-y-4  ">
+
+  {/* Top Info */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <div className="bg-gray-100 rounded p-4">
+      <p className="text-xs text-gray-500">Minimum Booking</p>
+      <h3 className="font-bold text-xl">15,000 BDT</h3>
+    </div>
+
+    <div className="bg-gray-100 rounded p-4">
+      <p className="text-xs text-gray-500">Purchase Points</p>
+      <h3 className="font-bold text-xl">100 Points</h3>
+    </div>
+
+    <div className="bg-gray-100 rounded p-4">
+      <p className="text-xs text-gray-500">EMI Available</p>
+      <h3 className="font-medium">Details</h3>
+    </div>
+  </div>
+
+  {/* Price Box */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div className="border rounded p-3">
+      <h3 className="text-lg font-bold text-orange-500">
+        Offer Price: {formatPrice(product.price)}
+      </h3>
+      <p className="text-sm text-gray-500">
+        Cash/Card/MFS Payment
+      </p>
+    </div>
+
+    <div className="border rounded p-3">
+      <h3 className="text-base font-bold">
+        Regular Price:
+        <span className="line-through text-gray-400 ml-2">
+          {formatPrice(product.originalPrice)}
+        </span>
+      </h3>
+      <p className="text-sm text-gray-500">
+        EMI Begin at BDT 13,220/month
+      </p>
+    </div>
+  </div>
+
+  {/* Delivery */}
+  <div>
+    <span className="font-semibold">Estimated delivery:</span>
+    <span className="text-blue-600 ml-1">0-3 days</span>
+  </div>
+
+  {/* Buy More */}
+  <div className="bg-black text-white p-3 rounded font-semibold text-center">
+    🔥 Buy More Save More!
+  </div>
+
+  {/* Accessories */}
+  {selectedCategories.map((cat) => (
+    <div key={cat} className="space-y-2">
+
+      <h2 className="text-base sm:text-lg font-bold text-gray-800 capitalize">
+        {cat}
+      </h2>
+
+      {products
+        .filter((p) => p.category === cat)
+        .map((product) => {
+
+          const discountAmount =
+            (product.originalPrice * product.discountPercentage) / 100;
+
+          const finalPrice =
+            product.originalPrice - discountAmount;
+
+          return (
+           <div
+  key={product.id}
+  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 border rounded-md bg-white shadow-sm"
+>
+
+  {/* Left side */}
+  <div className="flex items-center gap-3 min-w-0">
+    <input
+     type="checkbox"
+  
+  onChange={() => {
+    const isAdded = cart.some((item) => item.id === product.id);
+  if (isAdded) {
+    removeFromCart(product.id);
+  } else {
+    addTocart(product);
+  }
+}}
+      className="w-4 h-4 accent-amber-500 shrink-0"
+    />
+
+    <img
+      src={product.img}
+      alt={product.name}
+      className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded shrink-0"
+    />
+
+    <p className="text-sm font-medium text-gray-800 truncate">
+      {product.name}
+    </p>
+  </div>
+
+  {/* Right side */}
+  <div className="flex items-center sm:justify-end gap-3 shrink-0">
+
+    <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">
+      ৳ {finalPrice.toLocaleString()}
+    </p>
+
+   <div className="px-3 py-1 flex items-center gap-2 text-xs font-semibold text-red-600 border border-dashed border-red-300 rounded-full bg-red-50 whitespace-nowrap">
+  <span>Save</span>
+  <span>৳{discountAmount.toLocaleString()}</span>
+</div>
+  </div>
+
+</div>
+          );
+        })}
+    </div>
+  ))}
+ <div className="w-full max-w-[700px] font-sans antialiased">
+
+  {/* Header */}
+  <div className="bg-[#11161a] text-white flex items-center gap-3 px-5 py-4 rounded-t-lg">
+    <h3 className="font-bold text-base tracking-wide">
+      Dazzle Care
+    </h3>
+  </div>
+
+  {/* Care Plans */}
+  <div className="bg-[#f0f2f5] border border-t-0 border-gray-200 rounded-b-lg p-3 space-y-3">
+
+    {carePlans.map((item) => {
+      const isChecked = selectedCare?.id === item.id;
+
+      return (
+        <div
+          key={item.id}
+          onClick={() => setSelectedCare(isChecked ? null : item)}
+          className={`
+            flex justify-between items-center p-4 rounded-md cursor-pointer select-none
+            transition duration-200
+            ${isChecked ? "bg-white shadow-sm" : "bg-[#e8ecef] hover:bg-[#e2e6ea]"}
+          `}
+        >
+
+          {/* LEFT SIDE */}
+          <div className="flex items-start gap-3 flex-1 pr-4">
+
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={() => {}}
+              className="w-5 h-5 mt-0.5 accent-black cursor-pointer"
+            />
+
+            <span className="text-sm mt-1">
+              <img src={item.image} alt=""  />
+            </span>
+
+            <p className="text-[13.5px] text-gray-800 font-medium leading-relaxed">
+              {item.name}
+            </p>
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="text-right min-w-[100px]">
+            <span className="block text-xs font-semibold text-gray-500">
+              BDT
+            </span>
+            <span className="block text-sm font-bold text-gray-900 mt-0.5">
+              {item.price.toLocaleString("en-IN")}
+            </span>
           </div>
 
         </div>
+      );
+    })}
+  </div>
+
+  {/* Terms */}
+  <div className="flex items-center gap-2 mt-4 px-1 select-none">
+
+    <input
+      type="checkbox"
+      id="terms"
+      onChange={(e) => setAgreeTerms(e.target.checked)}
+      className="w-4 h-4 accent-green-500 cursor-pointer"
+    />
+
+    <label
+      htmlFor="terms"
+      className="text-[13px] text-gray-700 cursor-pointer"
+    >
+      I agree to Dazzle{" "}
+      <a
+        href="#terms"
+        className="text-blue-600 underline hover:text-blue-800"
+      >
+        terms & conditions
+      </a>
+    </label>
+
+  </div>
+
+</div>
+  {/* Total */}
+  <h2 className="text-2xl sm:text-3xl font-bold text-orange-500">
+    {finalTotal.toLocaleString()}
+  </h2>
+
+  {/* Buttons */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <button className="bg-black text-white py-4 rounded font-semibold">
+      ADD TO CART
+    </button>
+
+    <button className="border py-4 rounded font-semibold">
+      BUY NOW
+    </button>
+  </div>
+
+  {/* Bottom Cards */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div className="bg-green-500 text-white rounded p-4">
+      <h3 className="font-bold text-xl">In Stock</h3>
+      <p className="text-sm">Check Delivery Time</p>
+    </div>
+
+    <div className="bg-gray-100 rounded p-4">
+      <h3 className="font-bold">1 Year Apple</h3>
+      <p className="text-sm text-gray-500">Warranty</p>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+        </div>
+
+
+
+
+        
       </div>
+
+     <div className="relative mt-10 group overflow-hidden rounded-xl">
+  <Swiper
+    modules={[Navigation, Autoplay]}
+    loop={true}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+    }}
+    navigation={{
+      nextEl: ".swiper-button-next-custom",
+      prevEl: ".swiper-button-prev-custom",
+    }}
+    spaceBetween={20}
+    breakpoints={{
+      0: { slidesPerView: 1 },
+      640: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
+      1280: { slidesPerView: 6 },
+    }}
+  >
+    {relatedProducts.map((product) => {
+      const discountAmount =
+        (product.originalPrice * product.discountPercentage) / 100;
+      const finalPrice = product.originalPrice - discountAmount;
+
+      return (
+        <SwiperSlide key={product.id}>
+          <div
+            onMouseEnter={() => setHoveredId(product.id)}
+            onMouseLeave={() => setHoveredId(null)}
+            className="bg-white rounded-lg h-full shadow-sm hover:shadow-lg duration-300 relative overflow-hidden group"
+          >
+            {/* Hover Icons */}
+            <div
+              className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
+                hoveredId === product.id
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-12"
+              }`}
+            >
+              <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white">
+                <FaHeart size={16} />
+              </button>
+              <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-black hover:text-white">
+                <FaBalanceScale size={16} />
+              </button>
+            </div>
+
+            {/* Image */}
+            <div className="relative">
+              <span className="absolute left-0 top-0 bg-[#C68A45] text-white text-xs px-2 py-1 rounded-br-lg z-10">
+                {product.discountPercentage}%
+              </span>
+              <img
+                src={product.img}
+                alt={product.name}
+                className="w-full h-52 object-contain p-4"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="p-4">
+              <h3 className="text-center font-medium h-12 line-clamp-2">
+                {product.name}
+              </h3>
+
+              <div className="mt-3">
+                <span className="font-bold text-[16px]">
+                  ৳ {finalPrice.toLocaleString()}
+                </span>
+                <span className="ml-2 text-gray-500 line-through text-sm">
+                  ৳ {product.originalPrice.toLocaleString()}
+                </span>
+              </div>
+
+              <div className="flex gap-2 mt-4">
+                <Link href={`/DetailPage/${product.id}`}>
+                  <button className="flex-1 bg-[#081018] px-6 cursor-pointer text-white py-2 rounded-md">
+                    View
+                  </button>
+                </Link>
+                <button
+                  onClick={() => addTocart(product)}
+                  className="flex-1 cursor-pointer border py-2 rounded-md"
+                >
+                  Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+      );
+    })}
+
+    {/* ✅ Navigation Buttons — Swiper এর ভেতরে */}
+    <button className="swiper-button-prev-custom absolute left-4 top-1/2 md:opacity-0 md:group-hover:opacity-100 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 p-2 rounded-full text-white duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+    </button>
+
+    <button className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 p-2 rounded-full text-white md:opacity-0 md:group-hover:opacity-100 duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    </button>
+
+  </Swiper>
+</div>
+
     </div>
   );
 }

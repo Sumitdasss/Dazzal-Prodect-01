@@ -22,8 +22,13 @@ const Cartpage = () => {
       </div>
 
       {/* Cart Items */}
-      {cart.map((item, index) => (
-        <div
+      {cart.map((item, index) => {
+const discountAmount =
+            (item.originalPrice * item.discountPercentage) / 100;
+
+          const finalPrice =item.originalPrice - discountAmount;
+        return(
+          <div
           key={index}
           className="bg-white shadow-sm rounded-md p-4 md:px-6 md:py-5 mb-4 md:mb-6"
         >
@@ -40,7 +45,7 @@ const Cartpage = () => {
             {/* Price */}
             <p className="text-sm md:text-base">
               <span className="md:hidden font-semibold">Price: </span>
-              ${item.price}
+              ${finalPrice}
             </p>
 
             {/* Quantity */}
@@ -69,7 +74,10 @@ const Cartpage = () => {
             </p>
           </div>
         </div>
-      ))}
+        )
+      }
+        
+      )}
 
       {/* Buttons */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10">
@@ -94,7 +102,7 @@ const Cartpage = () => {
           <input
             type="text"
             placeholder="Coupon Code"
-            className="border px-4 h-15 md:h-15 rounded-md outline-none"
+            className="border pl-1 h-15 md:h-15 rounded-md outline-none"
           />
 
           <button className="bg-red-500 text-white px-6 h-15 md:h-15 rounded-md">

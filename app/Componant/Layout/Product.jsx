@@ -1,4 +1,4 @@
-"use"
+'use client';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const FlashSale = () => {
+  
   const [hoveredId, setHoveredId] = useState(null);
   const {addTocart}=useStore();
   return (
@@ -70,66 +71,91 @@ const FlashSale = () => {
     },
   }}
 >
-  {products.map((product) => (
-    <SwiperSlide key={product.id}>
-      <div  onMouseEnter={() => setHoveredId(product.id)}
-  onMouseLeave={() => setHoveredId(null)} className="bg-white rounded-lg h-full shadow-sm hover:shadow-lg duration-300 relative overflow-hidden group">
- <div className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
-    hoveredId === product.id
-      ? "opacity-100 translate-x-0"
-      : "opacity-0 translate-x-12"
-  }`}>
-  <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white">
-    <FaHeart size={16} />
-  </button>
+  {products.map((product) => {
+     const discountAmount =
+    (product.originalPrice * product.discountPercentage) / 100;
 
-  <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-black hover:text-white">
-    <FaBalanceScale size={16} />
-  </button>
-</div>
+  const finalPrice = product.originalPrice - discountAmount;
 
-        <div className="relative">
-          <span className="absolute left-0 top-0 bg-[#C68A45] text-white text-xs px-2 py-1 rounded-br-lg z-10">
-            {product.discountPercentage}%
+
+return(
+<SwiperSlide key={product.id}>
+    <div
+      onMouseEnter={() => setHoveredId(product.id)}
+      onMouseLeave={() => setHoveredId(null)}
+      className="bg-white rounded-lg h-full shadow-sm hover:shadow-lg duration-300 relative overflow-hidden group"
+    >
+      <div
+        className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
+          hoveredId === product.id
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-12"
+        }`}
+      >
+        <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white">
+          <FaHeart size={16} />
+        </button>
+
+        <button className="w-10 h-10 cursor-pointer bg-white shadow-md rounded-full flex items-center justify-center hover:bg-black hover:text-white">
+          <FaBalanceScale size={16} />
+        </button>
+      </div>
+
+      <div className="relative">
+        <span className="absolute left-0 top-0 bg-[#C68A45] text-white text-xs px-2 py-1 rounded-br-lg z-10">
+          {product.discountPercentage}%
+        </span>
+
+        <img
+          src={product.img}
+          alt={product.name}
+          className="w-full h-52 object-contain p-4"
+        />
+      </div>
+
+      <div className="p-4">
+        <h3 className="text-center font-medium h-12 line-clamp-2">
+          {product.name}
+        </h3>
+
+        <div className="mt-3">
+          <span className="font-bold text-lg">
+            ৳ {finalPrice.toLocaleString()}
           </span>
 
-          <img
-            src={product.img}
-            alt={product.name}
-            className="w-full h-52 object-contain p-4"
-          />
+          <span className="ml-2 text-gray-500 line-through text-sm">
+            ৳ {product.originalPrice.toLocaleString()}
+          </span>
         </div>
 
-        <div className="p-4">
-          <h3 className="text-center font-medium h-12 line-clamp-2">
-            {product.name}
-          </h3>
-
-          <div className="mt-3">
-            <span className="font-bold text-lg">
-              ৳ {product.price.toLocaleString()}
-            </span>
-
-            <span className="ml-2 text-gray-500 line-through text-sm">
-              ৳ {product.originalPrice.toLocaleString()}
-            </span>
-          </div>
-
-          <div className="flex gap-2 mt-4">
-             <Link href={`/DetailPage/${product.id}`}>
+        <div className="flex gap-2 mt-4">
+          <Link href={`/DetailPage/${product.id}`}>
             <button className="flex-1 bg-[#081018] px-6 cursor-pointer text-white py-2 rounded-md">
               View
             </button>
-</Link>
-            <button onClick={()=>{addTocart(product)}} className="flex-1  cursor-pointer border py-2 rounded-md">
-              Cart
-            </button>
-          </div>
-        </div>
+          </Link>
 
+          <button
+            onClick={() => addTocart(product)}
+            className="flex-1 cursor-pointer border py-2 rounded-md"
+          >
+            Cart
+          </button>
+        </div>
       </div>
-    </SwiperSlide>
-  ))}
+    </div>
+  </SwiperSlide>
+)
+
+
+
+
+
+  }
+  
+  
+  
+)}
 </Swiper>
 
          

@@ -273,7 +273,7 @@ const currentProducts = filteredProducts.slice(
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
          
           {/* Sidebar Filters */}
-          <aside className={` fixed top-0 left-0 z-50
+          <aside className={` fixed top-0 left-0 z-30
     w-[300px] h-screen overflow-y-auto
     bg-white p-5 shadow-xl transition-transform duration-300
 

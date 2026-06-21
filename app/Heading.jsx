@@ -540,7 +540,7 @@ const groupedProducts = searchResults.reduce((acc, product) => {
             </button>
 
             <div
-              className={`absolute top-15 left-0 z-50 w-[700px] duration-500 bg-white rounded-lg shadow-xl overflow-hidden ${
+              className={`absolute top-15 left-0 z-40 w-[700px] duration-500 bg-white rounded-lg shadow-xl overflow-hidden ${
                 isMenuOpen2 ? "max-h-[600px]" : "max-h-0"
               }`}
             >

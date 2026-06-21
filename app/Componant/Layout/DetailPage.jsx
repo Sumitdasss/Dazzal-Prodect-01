@@ -534,8 +534,8 @@ const finalTotal =
 
   {/* Bottom Cards */}
   <div onClick={() => setShowDeliveryModal(true)} className="grid grid-cols-1  sm:grid-cols-2 gap-3">
-    <div className="bg-green-500 text-white rounded p-4">
-      <h3 className="font-bold text-xl">In Stock</h3>
+    <div className={`bg-green-500 text-white rounded p-4 ${product.availability?"In-Stock bg-green-500":"Out-of-Stock bg-red-500"}`}>
+      <h3 className="font-bold text-xl">{product.availability>0?"In-Stock ":"Out-of-Stock"}</h3>
       <p className="text-sm">Check Delivery Time</p>
 
 

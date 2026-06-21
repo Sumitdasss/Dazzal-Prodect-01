@@ -14,6 +14,8 @@ export default function ProductDetailPage({ product }) {
 const [selectedColor, setSelectedColor] = useState(
   product?.color?.[0] || ""
 );
+const [openPickup, setOpenPickup] = useState(false);
+const [showDeliveryModal, setShowDeliveryModal] = useState(false);
   const [hoveredId, setHoveredId] = useState(null);
 const [selectedCare, setSelectedCare] = useState(null);
   const [mainDisplayImg, setMainDisplayImg] = useState(product?.img || "");
@@ -80,7 +82,7 @@ const finalTotal =
   return (
 
     <div className="">
-    <div   className="bg-gray-50 max-w-360 mx-auto min-w-0  p-4 md:p-8 font-sans antialiased text-gray-800">
+    <div   className="bg-gray-50 relative max-w-360 mx-auto min-w-0  p-4 md:p-8 font-sans antialiased text-gray-800">
       
      
       <nav className="text-xs text-gray-500 mb-6 flex items-center gap-1">
@@ -90,13 +92,13 @@ const finalTotal =
         <span className="text-gray-800 font-medium">{product.name}</span>
       </nav>
 
-      <div className=" grid grid-cols-1 lg:grid-cols-12 gap-8 ">
+      <div className=" grid grid-cols-1 relative lg:grid-cols-12 gap-8 ">
         
       
-        <div className="lg:col-span-7 flex flex-row gap-4 items-start">
+        <div className="lg:col-span-7 sticky flex flex-row gap-4 items-start">
           
        
-          <div className="flex flex-col gap-3">
+          <div className="flex  flex-col gap-3">
            
            
           
@@ -521,7 +523,7 @@ const finalTotal =
 
   {/* Buttons */}
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    <button className="bg-black text-white py-4 rounded font-semibold">
+    <button onClick={()=>addTocart(product)} className="bg-black text-white py-4 rounded font-semibold">
       ADD TO CART
     </button>
 
@@ -531,10 +533,14 @@ const finalTotal =
   </div>
 
   {/* Bottom Cards */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <div onClick={() => setShowDeliveryModal(true)} className="grid grid-cols-1  sm:grid-cols-2 gap-3">
     <div className="bg-green-500 text-white rounded p-4">
       <h3 className="font-bold text-xl">In Stock</h3>
       <p className="text-sm">Check Delivery Time</p>
+
+
+
+
     </div>
 
     <div className="bg-gray-100 rounded p-4">
@@ -566,7 +572,166 @@ const finalTotal =
       </div>
 
 
+{showDeliveryModal && (
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4">
+    
+    <div className="relative bg-white w-full max-w-[500px] rounded-lg p-6 max-h-[80vh] overflow-y-auto">
 
+      {/* Close */}
+      <button
+        onClick={() => setShowDeliveryModal(false)}
+        className="absolute top-3 right-3 w-8 h-8 bg-[#e6c59d] rounded text-xl"
+      >
+        ×
+      </button>
+
+      {/* Header */}
+      <div className="flex justify-center mb-6">
+        <div className="bg-[#e6c59d] px-6 py-3 rounded">
+          Delivery Timeline
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="space-y-3">
+
+        <div className="bg-gray-100 p-3 rounded font-medium">
+          Dazzle Product Regular Delivery Timeline:
+        </div>
+
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Online/Head office</span>
+            <span>2-4 days</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Dubai Branch</span>
+            <span>7-15 days</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Jamuna Future Park</span>
+            <span>1-3 days</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Finlay Square Branch</span>
+            <span>1-3 days</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Jamuna Future Park
+</span>
+            <span>1 days</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Sanmar Ocean City</span>
+            <span>1-3 days</span>
+          </div>
+        </div>
+
+       <div className="mt-4">
+
+  {/* Header */}
+  <button
+    onClick={() => setOpenPickup(!openPickup)}
+    className="w-full bg-gray-100 p-3 rounded flex items-center justify-between font-medium"
+  >
+    <span>Dazzle product Store pick Up Timeline:</span>
+
+    <span
+      className={`transition-transform duration-300 ${
+        openPickup ? "rotate-90" : ""
+      }`}
+    >
+      ➜
+    </span>
+  </button>
+
+  {/* Content */}
+  <div
+    className={`overflow-hidden transition-all duration-300 ${
+      openPickup ? "max-h-[600px] mt-3" : "max-h-0"
+    }`}
+  >
+    <div className="space-y-4">
+
+      {/* Branch 1 */}
+      <div>
+        <div className="bg-[#e6c59d] px-4 py-3 flex justify-between">
+          <span>If product available at “Finlay Branch”</span>
+          <span className="font-semibold">Instant</span>
+        </div>
+
+        <div className="space-y-3 p-4">
+          <div className="flex justify-between">
+            <span>Sanmar Ocean City</span>
+            <span>30 mins</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Jamuna Future Park</span>
+            <span>1 days</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Branch 2 */}
+      <div>
+        <div className="bg-[#e6c59d] px-4 py-3 flex justify-between">
+          <span>If product available at “Sanmar Branch”</span>
+          <span className="font-semibold">Instant</span>
+        </div>
+
+        <div className="space-y-3 p-4">
+          <div className="flex justify-between">
+            <span>Finlay Square Branch</span>
+            <span>30 mins</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Jamuna Future Park</span>
+            <span>1 days</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="bg-[#e6c59d] px-4 py-3 flex justify-between">
+          <span>If product available at “Jamuna Branch““</span>
+          <span className="font-semibold">Instant</span>
+        </div>
+
+        <div className="space-y-3 p-4">
+          <div className="flex justify-between">
+            <span>Finlay Square Branch</span>
+            <span>1 mins</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Sanmar Ocean City</span>
+            <span>1 days</span>
+          </div>
+          <div className="flex justify-between">
+            <span>If product available at “Dubai Branch“</span>
+            <span>3-10 days</span>
+          </div>
+        </div>
+
+        <div className="bg-gray-400/60 py-3 px-3">
+          nside Chittagong & Dhaka Express Delivery ( Single day/ within 3 hours) possible if product available nearby store
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+      </div>
+    </div>
+  </div>
+)}
 
     </div>
 

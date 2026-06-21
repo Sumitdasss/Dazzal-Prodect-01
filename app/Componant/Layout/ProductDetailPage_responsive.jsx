@@ -458,7 +458,7 @@ export default function ProductDetailPage({ product }) {
 
             {/* CTA Buttons */}
             <div className="grid grid-cols-2 gap-3">
-              <button className="bg-black text-white py-3 sm:py-4 rounded-lg font-semibold text-sm hover:bg-gray-900 transition">
+              <button onClick={()=>addTocart(product)} className="bg-black text-white py-3 sm:py-4 rounded-lg font-semibold text-sm hover:bg-gray-900 transition">
                 ADD TO CART
               </button>
               <button className="border-2 border-black py-3 sm:py-4 rounded-lg font-semibold text-sm hover:bg-gray-50 transition">

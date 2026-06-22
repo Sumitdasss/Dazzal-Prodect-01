@@ -496,7 +496,7 @@ const finalTotal =
     <input
       type="checkbox"
       id="terms"
-      onChange={(e) => setAgreeTerms(e.target.checked)}
+   
       className="w-4 h-4 accent-green-500 cursor-pointer"
     />
 

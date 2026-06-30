@@ -474,17 +474,47 @@ const Heading = () => {
                     </div>
                   </Link>
 
-                  <Link
-                    href="/Login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
-                  >
-                    <div className="relative">
-                      <CiLogin />
-                    </div>
+                  {user ? (
+              <div
+                className="
+flex
+items-center
+gap-3
+"
+              >
+                <Link  href={"/Profile"}>
+                <img
+ src={user?.image || "https://i.pravatar.cc/150"}
+ className="
+ w-10
+ h-10
+ rounded-full
+ object-cover
+ "
+/>
+                </Link>
 
-                    <span>LOGIN</span>
-                  </Link>
+                <div>
+                  <p
+                    className="
+font-semibold
+text-sm
+"
+                  >
+                    {user.name}
+                  </p>
+
+
+                </div>
+              </div>
+            ) : (
+              <a
+                href="/Login"
+                className="border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors"
+              >
+                LOGIN
+              </a>
+            )}
 
                   <Link
                     href="/Cart"

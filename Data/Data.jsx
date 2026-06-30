@@ -887,9 +887,10 @@ image:"https://dazzle.com.bd/_next/image?url=%2Fimages%2Fwarranty.png&w=32&q=75"
 {
     id: 15,
     name: 'Powerbeats Fit',
-    brand: 'Beats',
+    brand: 'BEATS',
     totalQty: 20,
     availability:10,
+    
      
     color:["Jet Black","Gravity Gray","Spark Orange","Power Pink"],
     Region:"China",

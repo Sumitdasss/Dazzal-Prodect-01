@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
 
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaGift, FaFileInvoice,FaShopify } from "react-icons/fa";
+import { FaGift, FaFileInvoice, FaShopify } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { FaAngleRight } from "react-icons/fa6";
@@ -16,17 +17,27 @@ import Link from "next/link";
 import { products } from "../Data/Data";
 const Heading = () => {
   const getBrandsByCategory = (category) => {
-  return [...new Set(  products.filter((p) => p?.category?.toLowerCase().trim() ===category?.toLowerCase().trim()) .map((p) => p.brand))];};
-
+    return [
+      ...new Set(
+        products
+          .filter(
+            (p) =>
+              p.category && p.category.toLowerCase() === category.toLowerCase(),
+          )
+          .map((p) => p.brand),
+      ),
+    ];
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuOpen2, setIsMenuOpen2] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const menuRef = useRef(null);
   const [openMenu2, setOpenMenu2] = useState(null);
- const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
 
   const { cart } = useStore();
+  const user = useStore((state) => state.user);
   const totalItems = cart.length;
 
   useEffect(() => {
@@ -53,39 +64,38 @@ const Heading = () => {
     console.log(search);
   };
 
-const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-useEffect(() => {
-  const handler = setTimeout(() => {
-    setDebouncedSearch(search);
-  }, 300);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
 
-  return () => clearTimeout(handler);
-}, [search]);
+    return () => clearTimeout(handler);
+  }, [search]);
 
-const normalize = (str) =>
-  str?.toLowerCase().replace(/\s+/g, "").trim();
+  const normalize = (str) => str?.toLowerCase().replace(/\s+/g, "").trim();
 
-const searchResults = useMemo(() => {
-  const q = normalize(debouncedSearch);
+  const searchResults = useMemo(() => {
+    const q = normalize(debouncedSearch);
 
-  if (!q) return [];
+    if (!q) return [];
 
-  return products.filter((p) => {
-    const text = normalize(`${p.name} ${p.brand} ${p.category}`);
+    return products.filter((p) => {
+      const text = normalize(`${p.name} ${p.brand} ${p.category}`);
 
-    return q.split("").every((char) => text.includes(char));
-  });
-}, [debouncedSearch]);
+      return q.split("").every((char) => text.includes(char));
+    });
+  }, [debouncedSearch]);
 
-const groupedProducts = searchResults.reduce((acc, product) => {
-  const category = product.category || "Others";
+  const groupedProducts = searchResults.reduce((acc, product) => {
+    const category = product.category || "Others";
 
-  if (!acc[category]) acc[category] = [];
-  acc[category].push(product);
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(product);
 
-  return acc;
-}, {});
+    return acc;
+  }, {});
 
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   return (
@@ -165,152 +175,167 @@ const groupedProducts = searchResults.reduce((acc, product) => {
 
           <div className="flex flex-1 w-full max-w-2xl items-center gap-2">
             <div className="relative w-full">
-             <input
-  type="text"
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-  onFocus={() => setIsFocused(true)}
-  placeholder="Search products..."
-  className="w-37.5 md:w-full bg-white text-gray-800 pl-4 pr-4 py-2 md:py-2.5 rounded-lg text-sm focus:outline-none placeholder-gray-400 font-medium"
-/>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                placeholder="Search products..."
+                className="w-37.5 md:w-full bg-white text-gray-800 pl-4 pr-4 py-2 md:py-2.5 rounded-lg text-sm focus:outline-none placeholder-gray-400 font-medium"
+              />
 
-
-
-{isFocused && (
-  <div className="
+              {isFocused && (
+                <div
+                  className="
     absolute top-full left-15 -translate-x-1/2 sm:left-0 sm:translate-x-0 mt-2
     w-[calc(100vw-16px)] sm:w-[1000px] max-w-[100 vw]
     bg-white rounded-2xl shadow-2xl z-50 overflow-hidden border
-  ">
+  "
+                >
+                  {!search.trim() ? (
+                    /* শর্ত ১: যখন সার্চ ইনপুট খালি থাকবে */
+                    <div className="flex flex-col relative bg-white">
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <h3 className="text-sm font-bold text-gray-800 tracking-wide">
+                          Recommended For You
+                        </h3>
+                      </div>
+                      <div className="p-8 min-h-[160px] flex items-center justify-center">
+                        <p className="text-gray-400 font-normal text-base sm:text-lg">
+                          Your search history is empty!
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setIsFocused(false)}
+                        className="absolute top-2.5 right-2.5 bg-red-500 hover:bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] shadow-sm transition"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    (() => {
+                      {
+                        /* রানটাইমে কারেন্ট সার্চ রেজাল্ট থেকে ক্যাটাগরি ফিল্টার করার লজিক */
+                      }
+                      const dynamicCategories = Array.from(
+                        new Set(
+                          searchResults.map((p) => p.category).filter(Boolean),
+                        ),
+                      );
+                      const filteredDisplayProducts = selectedCategory
+                        ? searchResults.filter(
+                            (p) => p.category === selectedCategory,
+                          )
+                        : searchResults;
 
-    {!search.trim() ? (
-      /* শর্ত ১: যখন সার্চ ইনপুট খালি থাকবে */
-      <div className="flex flex-col relative bg-white">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h3 className="text-sm font-bold text-gray-800 tracking-wide">
-            Recommended For You
-          </h3>
-        </div>
-        <div className="p-8 min-h-[160px] flex items-center justify-center">
-          <p className="text-gray-400 font-normal text-base sm:text-lg">
-            Your search history is empty!
-          </p>
-        </div>
-        <button
-          onClick={() => setIsFocused(false)}
-          className="absolute top-2.5 right-2.5 bg-red-500 hover:bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] shadow-sm transition"
-        >
-          ✕
-        </button>
-      </div>
-    ) : (() => {
-      {/* রানটাইমে কারেন্ট সার্চ রেজাল্ট থেকে ক্যাটাগরি ফিল্টার করার লজিক */}
-      const dynamicCategories = Array.from(new Set(searchResults.map(p => p.category).filter(Boolean)));
-      const filteredDisplayProducts = selectedCategory 
-        ? searchResults.filter(p => p.category === selectedCategory)
-        : searchResults;
+                      return (
+                        /* শর্ত ২: যখন ইউজার সার্চ বারে টাইপ করবে */
+                        <>
+                          {/* HEADER */}
+                          <div className="flex justify-between items-center px-4 py-3 border-b bg-gray-50">
+                            <span className="text-sm font-semibold text-gray-700">
+                              {selectedCategory
+                                ? `${selectedCategory} `
+                                : "All Categories"}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {filteredDisplayProducts.length} items
+                            </span>
+                          </div>
 
-      return (
-        /* শর্ত ২: যখন ইউজার সার্চ বারে টাইপ করবে */
-        <>
-          {/* HEADER */}
-          <div className="flex justify-between items-center px-4 py-3 border-b bg-gray-50">
-            <span className="text-sm font-semibold text-gray-700">
-              {selectedCategory ? `${selectedCategory} ` : "All Categories"}
-            </span>
-            <span className="text-xs text-gray-500">
-              {filteredDisplayProducts.length} items
-            </span>
-          </div>
-
-          {/* BODY */}
-          <div className="flex flex-col md:flex-row h-[500px] md:h-[450px]">
-
-            {/* CATEGORIES */}
-            <div className="
+                          {/* BODY */}
+                          <div className="flex flex-col md:flex-row h-[500px] md:h-[450px]">
+                            {/* CATEGORIES */}
+                            <div
+                              className="
               w-full md:w-[220px] shrink-0
               flex md:flex-col 
               overflow-x-auto md:overflow-y-auto 
               border-b md:border-b-0 md:border-r
               bg-gray-50/50 scrollbar-none
-            ">
-              {/* 'All' অপশন যাতে ইউজার আবার সব সার্চ রেজাল্ট একসাথে দেখতে পারে */}
-              <button
-                onClick={() => setSelectedCategory("")}
-                className={`
+            "
+                            >
+                              {/* 'All' অপশন যাতে ইউজার আবার সব সার্চ রেজাল্ট একসাথে দেখতে পারে */}
+                              <button
+                                onClick={() => setSelectedCategory("")}
+                                className={`
                   px-4 py-2.5 text-xs sm:text-sm whitespace-nowrap md:whitespace-normal
                   text-left transition-all duration-200 shrink-0
-                  ${!selectedCategory
-                    ? "bg-[#BA8E55] text-white font-medium shadow-sm"
-                    : "text-gray-600 hover:bg-gray-100"
-                  }
-                `}
-              >
-                All Products
-              </button>
-
-              {dynamicCategories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`
-                    px-4 py-2.5 text-xs sm:text-sm whitespace-nowrap md:whitespace-normal
-                    text-left transition-all duration-200 shrink-0
-                    ${selectedCategory === category
+                  ${
+                    !selectedCategory
                       ? "bg-[#BA8E55] text-white font-medium shadow-sm"
                       : "text-gray-600 hover:bg-gray-100"
+                  }
+                `}
+                              >
+                                All Products
+                              </button>
+
+                              {dynamicCategories.map((category) => (
+                                <button
+                                  key={category}
+                                  onClick={() => setSelectedCategory(category)}
+                                  className={`
+                    px-4 py-2.5 text-xs sm:text-sm whitespace-nowrap md:whitespace-normal
+                    text-left transition-all duration-200 shrink-0
+                    ${
+                      selectedCategory === category
+                        ? "bg-[#BA8E55] text-white font-medium shadow-sm"
+                        : "text-gray-600 hover:bg-gray-100"
                     }
                   `}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+                                >
+                                  {category}
+                                </button>
+                              ))}
+                            </div>
 
-            {/* PRODUCTS CONTAINER */}
-            <div className="flex-1 overflow-y-auto p-3 bg-white">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {filteredDisplayProducts.length > 0 ? (
-                  filteredDisplayProducts.slice(0, 8).map((product) => (
-                    <Link
-                      key={product.id}
-                      href={`/DetailPage/${product.id}`}
-                      onClick={() => {
-                        setSearch("");
-                        setIsFocused(false);
-                      }}
-                    >
-                      <div className="border border-gray-100 rounded-xl p-2 hover:shadow-md transition bg-white flex flex-col h-full">
-                        <div className="h-24 w-full flex items-center justify-center overflow-hidden bg-gray-50/30 rounded-lg">
-                          <img
-                            src={product.img}
-                            className="h-full object-contain mix-blend-multiply"
-                            alt={product.name}
-                          />
-                        </div>
-                        <p className="text-xs mt-2 line-clamp-2 text-gray-700 flex-1 leading-relaxed">
-                          {product.name}
-                        </p>
-                        <p className="text-xs sm:text-sm font-semibold text-[#BA8E55] mt-1">
-                          ৳ {product.price?.toLocaleString()}
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <div className="col-span-full text-center text-gray-400 py-10 text-sm">
-                    No products found in this category.
-                  </div>
-                )}
-              </div>
-            </div>
-
-          </div>
-        </>
-      );
-    })()}
-  </div>
-)}
+                            {/* PRODUCTS CONTAINER */}
+                            <div className="flex-1 overflow-y-auto p-3 bg-white">
+                              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                                {filteredDisplayProducts.length > 0 ? (
+                                  filteredDisplayProducts
+                                    .slice(0, 8)
+                                    .map((product) => (
+                                      <Link
+                                        key={product.id}
+                                        href={`/DetailPage/${product.id}`}
+                                        onClick={() => {
+                                          setSearch("");
+                                          setIsFocused(false);
+                                        }}
+                                      >
+                                        <div className="border border-gray-100 rounded-xl p-2 hover:shadow-md transition bg-white flex flex-col h-full">
+                                          <div className="h-24 w-full flex items-center justify-center overflow-hidden bg-gray-50/30 rounded-lg">
+                                            <img
+                                              src={product.img}
+                                              className="h-full object-contain mix-blend-multiply"
+                                              alt={product.name}
+                                            />
+                                          </div>
+                                          <p className="text-xs mt-2 line-clamp-2 text-gray-700 flex-1 leading-relaxed">
+                                            {product.name}
+                                          </p>
+                                          <p className="text-xs sm:text-sm font-semibold text-[#BA8E55] mt-1">
+                                            ৳ {product.price?.toLocaleString()}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    ))
+                                ) : (
+                                  <div className="col-span-full text-center text-gray-400 py-10 text-sm">
+                                    No products found in this category.
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    })()
+                  )}
+                </div>
+              )}
             </div>
             <button
               onClick={handleSearch}
@@ -396,19 +421,17 @@ const groupedProducts = searchResults.reduce((acc, product) => {
                           openMenu2 === item.name ? "max-h-100" : "max-h-0"
                         }`}
                       >
-                         {getBrandsByCategory(item.name).map((brand, idx) => (
-
-  <Link key={idx} onClick={()=>setIsMenuOpen(false)} href={`/Shop?category=${item.name}&brand=${brand}`}>
-    <li
-     
-      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
-    >
-    
-            {brand}
-          
-    </li>
-    </Link>
-  ))}
+                        {getBrandsByCategory(item.name).map((brand, idx) => (
+                          <Link
+                            key={idx}
+                            onClick={() => setIsMenuOpen(false)}
+                            href={`/Shop?category=${item.name}&brand=${brand}`}
+                          >
+                            <li className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
+                              {brand}
+                            </li>
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   ))}
@@ -442,45 +465,40 @@ const groupedProducts = searchResults.reduce((acc, product) => {
                       ONLINE EXCLUSIVE
                     </span>
                   </div>
-<Link href="/Shop"  onClick={()=>setIsMenuOpen(false)}>
-                  <div className="flex items-center justify-between group cursor-pointer">
-                    <span className="text-[13px] py-1 flex items-center py-3 gap-2 font-bold tracking-wider text-gray-800 group-hover:text-black uppercase">
-                      <FaShopify className="text-[16px]"/>
-                      Shop
-                    </span>
-                  </div>
+                  <Link href="/Shop" onClick={() => setIsMenuOpen(false)}>
+                    <div className="flex items-center justify-between group cursor-pointer">
+                      <span className="text-[13px] py-1 flex items-center py-3 gap-2 font-bold tracking-wider text-gray-800 group-hover:text-black uppercase">
+                        <FaShopify className="text-[16px]" />
+                        Shop
+                      </span>
+                    </div>
                   </Link>
 
-<Link
-              href="/Login"
-              onClick={()=>setIsMenuOpen(false)}
-              className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
-            >
-              <div className="relative">
-                <CiLogin />
-              </div>
-             
-              <span>LOGIN</span>
-            </Link>
+                  <Link
+                    href="/Login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
+                  >
+                    <div className="relative">
+                      <CiLogin />
+                    </div>
 
+                    <span>LOGIN</span>
+                  </Link>
 
-
-
- <Link
-              href="/Cart"
-              onClick={()=>setIsMenuOpen(false)}
-              className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
-            >
-              <div className="relative">
-                <CgShoppingCart />
-              </div>
-              <span className="absolute -top-2 z-30 -right-2 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-red-600 text-white text-[10px] font-bold">
-                {totalItems}
-              </span>
-              <span>CART</span>
-            </Link>
-
-
+                  <Link
+                    href="/Cart"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="relative   flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
+                  >
+                    <div className="relative">
+                      <CgShoppingCart />
+                    </div>
+                    <span className="absolute -top-2 z-30 -right-2 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-red-600 text-white text-[10px] font-bold">
+                      {totalItems}
+                    </span>
+                    <span>CART</span>
+                  </Link>
                 </nav>
 
                 <div className="h-1.5 w-full bg-linear-to-r from-amber-200/50 via-amber-500/50 to-transparent opacity-30"></div>
@@ -508,7 +526,6 @@ const groupedProducts = searchResults.reduce((acc, product) => {
 
             <Link
               href="/Cart"
-             
               className="relative flex items-center gap-2 border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors "
             >
               <div className="relative">
@@ -519,12 +536,47 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </span>
               <span>CART</span>
             </Link>
-            <a
-              href="/Login"
-              className="border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors"
-            >
-              LOGIN
-            </a>
+            {user ? (
+              <div
+                className="
+flex
+items-center
+gap-3
+"
+              >
+                <Link  href={"/Profile"}>
+                <img
+ src={user?.image || "https://i.pravatar.cc/150"}
+ className="
+ w-10
+ h-10
+ rounded-full
+ object-cover
+ "
+/>
+                </Link>
+
+                <div>
+                  <p
+                    className="
+font-semibold
+text-sm
+"
+                  >
+                    {user.name}
+                  </p>
+
+
+                </div>
+              </div>
+            ) : (
+              <a
+                href="/Login"
+                className="border border-[#bfa280]/60 hover:border-[#bfa280] px-3 md:px-4 py-2 rounded-md text-[#dda96a] transition-colors"
+              >
+                LOGIN
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -608,18 +660,18 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </Link>
               {/* Dropdown Content */}
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
-              <ul className="flex flex-col">
-  {getBrandsByCategory("Phones").map((item, idx) => (
-    <li
-      key={idx}
-      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
-    >
-      <Link href={`/Shop?category=Phones&brand=${item}`}>
-        {item}
-      </Link>
-    </li>
-  ))}
-</ul>
+                <ul className="flex flex-col">
+                  {getBrandsByCategory("Phones").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=Phones&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </li>
 
@@ -640,13 +692,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                 {getBrandsByCategory("TABLET").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=TABLET&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("TABLET").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=TABLET&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -668,13 +723,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                      {getBrandsByCategory("LAPTOP").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=LAPTOP&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("LAPTOP").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=LAPTOP&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -696,13 +754,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                    {getBrandsByCategory("SMART WATCH").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=SMART WATCH&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("SMART WATCH").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=SMART WATCH&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -725,12 +786,15 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
                   {getBrandsByCategory("GADGETS").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=GADGET&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=GADGETS&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -752,13 +816,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                    {getBrandsByCategory("ACCESSORIES").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=ACCESSORIES&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("ACCESSORIES").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=ACCESSORIES&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -780,13 +847,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                   {getBrandsByCategory("SOUNDS").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=SOUNDS&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("SOUNDS").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=SOUNDS&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -808,13 +878,16 @@ const groupedProducts = searchResults.reduce((acc, product) => {
               </a>
               <div className="w-[220px] max-h-0 opacity-0 absolute top-full left-0 bg-white shadow-xl rounded-b-lg border border-gray-100 z-50 overflow-hidden transition-all duration-300 pointer-events-none group-hover:max-h-[500px] group-hover:opacity-100 group-hover:pointer-events-auto text-black">
                 <ul className="flex flex-col">
-                    {getBrandsByCategory("SMART TV").map((item, idx) => (
-  <li key={idx} className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase">
-<Link href={`/Shop?category=SMART TV&brand=${item}`}>
-    {item}
-    </Link>
-  </li>
-))}
+                  {getBrandsByCategory("SMART TV").map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="px-5 py-2.5 hover:bg-[#064e3b] hover:text-[#5eead4] text-[12px] uppercase"
+                    >
+                      <Link href={`/Shop?category=SMART TV&brand=${item}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>

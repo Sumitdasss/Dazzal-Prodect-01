@@ -8,11 +8,71 @@ const useStore = create(
       cart: [],
       wishlist: [],
 
+      users: [],
+
+      user: null,
+      register: (newUser) => {
+        set((state) => ({
+          users: [...state.users, newUser],
+        }));
+        toast.success("Account created successfully!");
+      },
+
+      login: (email, password) => {
+        let success = false;
+
+        set((state) => {
+          const foundUser = state.users.find(
+            (u) => u.email === email && u.password === password,
+          );
+
+          if (foundUser) {
+            success = true;
+
+            toast.success("Login successful!");
+
+            return {
+              user: foundUser,
+            };
+          } else {
+            toast.error("Invalid email or password!");
+
+            return {
+              user: null,
+            };
+          }
+        });
+
+        return success;
+      },
+      logout: () => {
+        set({
+          user: null,
+          
+        });
+
+        toast.success("Logout successfully!");
+      },
+      logoutDelet: () => {
+        set({
+          users: [],
+          user: null,
+          cart: [],
+          wishlist: [],
+        });
+
+        toast.success("Account deleted successfully!");
+      },
+
       addTocart: (product) =>
         set((state) => {
-          const exist = state.cart.find(
-            (item) => item.id === product.id
-          );
+          if (!state.user) {
+            toast.error("Please login first");
+
+            return state;
+          }
+
+          const exist = state.cart.find((item) => item.id === product.id);
 
           if (exist) {
             toast.success(`${product.name} quantity increased`);
@@ -24,7 +84,7 @@ const useStore = create(
                       ...item,
                       quantity: item.quantity + 1,
                     }
-                  : item
+                  : item,
               ),
             };
           }
@@ -32,23 +92,25 @@ const useStore = create(
           toast.success(`${product.name} added to cart`);
 
           return {
-            cart: [...state.cart, { ...product, quantity: 1 }],
+            cart: [
+              ...state.cart,
+              {
+                ...product,
+                quantity: 1,
+              },
+            ],
           };
         }),
 
       addToWishlist: (product) =>
         set((state) => {
-          const exist = state.wishlist.find(
-            (item) => item.id === product.id
-          );
+          const exist = state.wishlist.find((item) => item.id === product.id);
 
           if (exist) {
             toast.error(`${product.name} removed from wishlist`);
 
             return {
-              wishlist: state.wishlist.filter(
-                (item) => item.id !== product.id
-              ),
+              wishlist: state.wishlist.filter((item) => item.id !== product.id),
             };
           }
 
@@ -61,9 +123,7 @@ const useStore = create(
 
       increasePopulation: (id) =>
         set((state) => {
-          const product = state.cart.find(
-            (item) => item.id === id
-          );
+          const product = state.cart.find((item) => item.id === id);
 
           if (product) {
             toast.success(`${product.name} quantity increased`);
@@ -76,33 +136,27 @@ const useStore = create(
                     ...item,
                     quantity: item.quantity + 1,
                   }
-                : item
+                : item,
             ),
           };
         }),
 
       removeFromCart: (id) =>
-  set((state) => {
-    const product = state.cart.find(
-      (item) => item.id == id
-    );
+        set((state) => {
+          const product = state.cart.find((item) => item.id == id);
 
-    if (product) {
-      toast.error(`${product.name} removed from cart`);
-    }
+          if (product) {
+            toast.error(`${product.name} removed from cart`);
+          }
 
-    return {
-      cart: state.cart.filter(
-        (item) => item.id != id
-      ),
-    };
-  }),
+          return {
+            cart: state.cart.filter((item) => item.id != id),
+          };
+        }),
 
       decreasePopulation: (id) =>
         set((state) => {
-          const product = state.cart.find(
-            (item) => item.id === id
-          );
+          const product = state.cart.find((item) => item.id === id);
 
           if (!product) return state;
 
@@ -120,7 +174,7 @@ const useStore = create(
                       ...item,
                       quantity: item.quantity - 1,
                     }
-                  : item
+                  : item,
               )
               .filter((item) => item.quantity > 0),
           };
@@ -128,8 +182,8 @@ const useStore = create(
     }),
     {
       name: "cart-storage",
-    }
-  )
+    },
+  ),
 );
 
 export default useStore;

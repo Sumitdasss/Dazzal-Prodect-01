@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 'use client';
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,8 +14,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 const FlashSale = () => {
-  
-  const [hoveredId, setHoveredId] = useState(null);
+  const[hover,setHoveredId]=useState(null)
+ 
   const {addTocart}=useStore();
   return (
     <section className="max-w-[1440px] mx-auto px-4 md:px-0  my-10">
@@ -87,7 +88,7 @@ return(
     >
       <div
         className={`absolute top-4 right-3 flex flex-col gap-2 z-20 transition-all duration-300 ${
-          hoveredId === product.id
+          hover === product.id
             ? "opacity-100 translate-x-0"
             : "opacity-0 translate-x-12"
         }`}

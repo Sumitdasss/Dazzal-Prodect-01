@@ -1,11 +1,46 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 'use client';
 
-import React, { useState } from 'react';
+import Link from 'next/link';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import useStore from "../Componant/Layout/Store/store";
 // react-icons থেকে প্রয়োজনীয় আইকনগুলো ইম্পোর্ট করা হয়েছে
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 
 export default function LoginPage() {
+  const router=useRouter()
+  const login = useStore(
+  (state)=>state.login
+);
+
+
+
+
+
+const [email,setEmail] = useState("");
+
+const [password,setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  function handleLogin(e){
+
+e.preventDefault();
+
+
+const success = login(
+ email,
+ password
+);
+
+
+if(success){
+
+ router.push("/");
+
+}
+
+}
 
   return (
     <div className=" bg-gray-50 flex items-center justify-center p-4 md:p-10">
@@ -26,7 +61,7 @@ export default function LoginPage() {
             Continue with Username
           </h2>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleLogin} className="space-y-4" >
             {/* Email/Phone Input */}
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
@@ -34,6 +69,8 @@ export default function LoginPage() {
               </span>
               <input
                 type="text"
+                value={email}
+onChange={(e)=>setEmail(e.target.value)}
                 placeholder="Email or phone number"
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-200 transition text-sm text-gray-700 placeholder-gray-400"
               />
@@ -45,8 +82,14 @@ export default function LoginPage() {
                 <FaLock size={16} />
               </span>
               <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
+               type={showPassword ? "text" : "password"}
+
+placeholder="Password"
+
+value={password}
+
+onChange={(e)=>setPassword(e.target.value)}
+               
                 className="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-200 transition text-sm text-gray-700 placeholder-gray-400"
               />
               <button
@@ -91,9 +134,9 @@ export default function LoginPage() {
           {/* Register Link */}
           <div className="text-center mt-6 text-xs text-gray-700 font-medium">
          
-            <a href="#" className="text-[#D4AF37] font-semibold hover:underline">
+            <Link href={"/Registar"} className="text-[#D4AF37] font-semibold hover:underline">
               Register
-            </a>
+            </Link>
           </div>
 
           {/* OR Separator 2 */}
